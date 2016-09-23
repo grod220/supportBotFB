@@ -1,0 +1,19 @@
+{
+  "name": "supportbotfb",
+  "version": "1.0.0",
+  "description": "Code for help center facebook messenger bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grod220/supportBotFB.git"
+  },
+  "author": "Gabe Rodriguez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/grod220/supportBotFB/issues"
+  },
+  "homepage": "https://github.com/grod220/supportBotFB#readme"
+}
