@@ -2,9 +2,10 @@
   "name": "supportbotfb",
   "version": "1.0.0",
   "description": "Code for help center facebook messenger bot",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/grod220/supportBotFB/issues"
   },
-  "homepage": "https://github.com/grod220/supportBotFB#readme"
+  "homepage": "https://github.com/grod220/supportBotFB#readme",
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0",
+    "nodemon": "^1.10.2"
+  }
 }
