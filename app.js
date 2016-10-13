@@ -40,7 +40,7 @@ function receivedMessage(event) {
   var messageText = message.text;
 
   if (messageText) {
-    sendTextMessage(senderID, 'You said: ' + messageText);
+    sendTextMessage(senderID, 'You hath said: ' + messageText);
   }
 }
 
