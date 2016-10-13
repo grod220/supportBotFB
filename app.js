@@ -1,19 +1,19 @@
 var express = require('express'),
     morgan = require('morgan'),
     chalk = require('chalk'),
-    bodyParser = require('body-parser')
+    bodyParser = require('body-parser');
 
 var app = express();
 
 app.use(morgan('dev'));
 
 app.get('/', function (req, res) {
-  res.send(process.env.test123);
+  res.send('Hello World!');
 });
 
 app.get('/webhook', function(req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
-      req.query['hub.verify_token'] === VALIDATION_TOKEN) {
+      req.query['hub.verify_token'] === process.env.valTok) {
     console.log(chalk.red("Validating webhook"));
     res.status(200).send(req.query['hub.challenge']);
   } else {
