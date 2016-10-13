@@ -1,14 +1,25 @@
 var express = require('express'),
     morgan = require('morgan'),
-    chalk = require('chalk');
+    chalk = require('chalk'),
+    bodyParser = require('body-parser')
 
 var app = express();
 
 app.use(morgan('dev'));
 
-
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.send(process.env.test123);
+});
+
+app.get('/webhook', function(req, res) {
+  if (req.query['hub.mode'] === 'subscribe' &&
+      req.query['hub.verify_token'] === VALIDATION_TOKEN) {
+    console.log(chalk.red("Validating webhook"));
+    res.status(200).send(req.query['hub.challenge']);
+  } else {
+    console.error("Failed validation. Make sure the validation tokens match.");
+    res.sendStatus(403);
+  }
 });
 
 var portNum = process.env.PORT || 3000;
