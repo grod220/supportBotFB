@@ -41,30 +41,7 @@ function receivedMessage(event) {
   var messageAttachments = message.attachments;
 
   if (messageText) {
-
-    // If we receive a text message, check to see if it matches any special
-    // keywords and send back the corresponding example. Otherwise, just echo
-    // the text we received.
-    switch (messageText) {
-      case 'image':
-        sendImageMessage(senderID);
-        break;
-
-      case 'button':
-        sendButtonMessage(senderID);
-        break;
-
-      case 'generic':
-        sendGenericMessage(senderID);
-        break;
-
-      case 'receipt':
-        sendReceiptMessage(senderID);
-        break;
-
-      default:
-        sendTextMessage(senderID, messageText);
-    }
+    sendTextMessage(senderID, 'You said: ' + messageText);
   } else if (messageAttachments) {
     sendTextMessage(senderID, "Message with attachment received");
   }
@@ -79,7 +56,6 @@ function sendTextMessage(recipientId, messageText) {
       text: messageText
     }
   };
-
   callSendAPI(messageData);
 }
 
@@ -89,12 +65,10 @@ function callSendAPI(messageData) {
     qs: { access_token: process.env.pageAccess },
     method: 'POST',
     json: messageData
-
   }, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       var recipientId = body.recipient_id;
       var messageId = body.message_id;
-
       console.log("Successfully sent generic message with id %s to recipient %s",
         messageId, recipientId);
     } else {
@@ -125,11 +99,6 @@ app.post('/webhook', function (req, res) {
         }
       });
     });
-
-    // Assume all went well.
-    //
-    // You must send back a 200, within 20 seconds, to let us know you've
-    // successfully received the callback. Otherwise, the request will time out.
     res.sendStatus(200);
   }
 });
