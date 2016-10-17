@@ -5,19 +5,39 @@ var express = require('express'),
     morgan = require('morgan'),
     chalk = require('chalk'),
     bodyParser = require('body-parser'),
-    request = require('request');
+    request = require('request'),
+    Wit = require('node-wit').Wit;
+    // log = require('node-wit').log;
 
 
 var app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-require('dotenv').config();
+require('dotenv').config({silent: true});
 
 app.get('/', function (req, res) {
-  let square = x => x * x;
-  res.send(String(square(12)));
+    res.send('Hello world!');
 });
+
+// const witAccessTok = process.env.witAccessTok;
+// const sessions = {};
+// const findOrCreateSession = (fbid) => {
+//   let sessionId;
+//   // Let's see if we already have a session for the user fbid
+//   Object.keys(sessions).forEach(k => {
+//     if (sessions[k].fbid === fbid) {
+//       // Yep, got it!
+//       sessionId = k;
+//     }
+//   });
+//   if (!sessionId) {
+//     // No session found for user fbid, let's create a new one
+//     sessionId = new Date().toISOString();
+//     sessions[sessionId] = {fbid: fbid, context: {}};
+//   }
+//   return sessionId;
+// };
 
 app.get('/webhook', function(req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
@@ -46,12 +66,19 @@ function receivedMessage(event) {
   var messageText = message.text;
 
   if (messageText) {
-    sendTextMessage(senderID, witAIConvo(messageText));
+    sendTextMessage(senderID, witAIConvo(messageText, senderID));
   }
 }
 
-function witAIConvo(incomingMessage) {
- return 'yo!';
+function witAIConvo(incomingMessage, senderID) {
+  request({
+    uri: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: { access_token: process.env.pageAccess },
+    method: 'POST',
+    json: messageData
+  }, function (error, response, body) {
+
+  });
 }
 
 function sendTextMessage(recipientId, messageText) {
