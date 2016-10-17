@@ -1,16 +1,22 @@
+/* jshint node: true */
+"use strict";
+
 var express = require('express'),
     morgan = require('morgan'),
     chalk = require('chalk'),
     bodyParser = require('body-parser'),
     request = require('request');
 
+
 var app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
+require('dotenv').config();
 
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  let square = x => x * x;
+  res.send(String(square(12)));
 });
 
 app.get('/webhook', function(req, res) {
