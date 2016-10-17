@@ -46,8 +46,12 @@ function receivedMessage(event) {
   var messageText = message.text;
 
   if (messageText) {
-    sendTextMessage(senderID, 'You hath said: ' + messageText);
+    sendTextMessage(senderID, witAIConvo(messageText));
   }
+}
+
+function witAIConvo(incomingMessage) {
+ return 'yo!';
 }
 
 function sendTextMessage(recipientId, messageText) {
